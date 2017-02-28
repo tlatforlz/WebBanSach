@@ -1,0 +1,189 @@
+<%-- 
+    Document   : user
+    Created on : Nov 18, 2011, 11:45:59 AM
+    Author     : Crabfish
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="error.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<title>Quản lý người dùng</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+
+<%--Style table thong tin--%>
+<style type="text/css">
+<!--
+.style1 {
+	font-size: 24px;
+	color: #3366FF;
+	font-weight: bold;
+}
+.textbox {
+	border: 1px solid #3399FF;
+}
+.thongtin {
+	padding-right: 10px;
+}
+-->
+</style>
+<%--Ket thuc style table thong tin--%>
+</head>
+<body>
+    
+<div id="wrap">
+       <div class="header">
+       		<div class="logo"><a href="index.html"><img src="images/logo.gif" alt="" title="" border="0" /></a></div>            
+        <div id="menu">
+            <ul>                                                                       
+            <li class="selected"><a href="index.jsp">Trang Chủ</a></li>
+            <li><a href="user.jsp">QL User</a></li>
+            <li><a href="#">QL Tác Giả</a></li>
+            <li><a href="#">QL Dịch Giả</a></li>
+            <li><a href="#">QL NXB</a></li>
+            <li><a href="#">QL Ngôn Ngữ</a></li>
+            <li><a href="#">QL Thể Loại</a></li>
+            <li><a href="#">QL Sách</a></li>
+            <li><a href="#">QL Đơn ĐH</a></li>
+            <li><a href="#">QL QC</a></li>
+            </ul>
+        </div>        
+       </div> 
+       <div class="center_content">
+     
+        <%
+            String TenDN=request.getParameter("tendn");
+            String MatKhau=request.getParameter("matkhau");
+            String HoTen=request.getParameter("hoten");
+            String NgaySinh=request.getParameter("ngaysinh");
+            String DiaChi=request.getParameter("diachi");
+            String DienThoai=request.getParameter("dienthoai");
+            String Email=request.getParameter("email");
+            String NgayDangKy=request.getParameter("");
+            String GioiTinh=request.getParameter("gioitinh");
+            String IdGroup=request.getParameter("idgroup");
+        %>      
+        <%@include file="connect.jsp" %>
+        <%
+            String insert = "INSERT INTO NGUOIDUNG(TenDN, MatKhau, HoTen, NgaySinh, DiaChi, DienThoai, Email, NgayDangKy, GioiTinh, IdGroup) VALUES('"+TenDN+"','"+MatKhau+"','"+HoTen+"','"+NgaySinh+"','"+DiaChi+"','"+DienThoai+"','"+Email+"','"+NgayDangKy+"','"+GioiTinh+"','"+IdGroup+"')";
+              rs = st.executeQuery(insert);
+            int i=1;
+        %>
+        <br/>      
+        <table align="center" bgcolor="#CCFFCC"><tr ><td>
+                    <strong><font  size="6" color="#3399CC">DANH SÁCH NGƯỜI DÙNG</font></strong>
+                </td></tr></table>
+    <br/><br/>
+        <table align="center" border="1" border-style="solid" bordercolor="#3399CC" cellpadding="0" cellspacing="0" width="850px">
+            <tr>
+                <th>STT</th><th>Tên Đăng Nhập</th><th>Mật Khẩu</th><th>Họ Tên</th><th>Ngày Sinh</th><th>Địa Chỉ</th><th>Điện Thoại</th><th>Email</th><th>Ngày Đăng Ký</th><th>Giới Tính</th><th>Nhóm</th>
+            </tr>
+        <%
+            if(rs!=null)
+            {
+                for(i=1; rs.next();i++)
+                {
+                    out.println("<tr><td width='10'>"+ i +"</td><td width='30'>"+ rs.getString(1) +"</td><td width='10'>"+ rs.getString(2) +"</td><td>"+ rs.getString(3) +"</td><td>"+ rs.getDate(4) +"</td><td>"+ rs.getString(5) +"</td><td>"+ rs.getInt(6) +"</td><td>"+ rs.getString(7) +"</td><td>"+ rs.getDate(8) +"</td><td>"+ rs.getString(9) +"</td><td>"+ rs.getString(10) +"</td>");
+                }
+            }
+        %>
+        </table>
+       
+       <div class="clear"></div>
+       </div><!--end of center content-->
+       
+              
+       <div class="footer">
+       	<div class="left_footer"><img src="images/footer_logo.gif" alt="" title="" /><br /> <a href="http://csscreme.com/freecsstemplates/" title="free templates"><img src="images/csscreme.gif" alt="free templates" title="free templates" border="0" /></a></div>
+        <div class="right_footer">
+        <a href="#">Trang Chủ</a>
+        <a href="#">about us</a>
+        <a href="#">services</a>
+        <a href="#">privacy policy</a>
+        <a href="#">Liên Hệ</a>
+       
+        </div>
+        
+       
+       </div>
+    
+
+</div>
+
+</body>
+       
+<%--Quảng cáo trượt 2 bên --%>        
+<div id="divAdRight" style="DISPLAY: none; POSITION: absolute; TOP: 0px"> 
+<a href="#"><img src="images\bannerfpt.jpg" width="125" /></a>
+</div> 
+<div id="divAdLeft" style="DISPLAY: none; POSITION: absolute; TOP: 0px"> 
+<a href="#"><img src="images\bannerfpt.jpg" width="125" /></a>       
+</div> 
+<script> 
+    function FloatTopDiv() 
+    { 
+        startLX = ((document.body.clientWidth -MainContentW)/2)-LeftBannerW-LeftAdjust , startLY = TopAdjust+80; 
+        startRX = ((document.body.clientWidth -MainContentW)/2)+MainContentW+RightAdjust , startRY = TopAdjust+80; 
+        var d = document; 
+        function ml(id) 
+        { 
+            var el=d.getElementById?d.getElementById(id):d.all?d.all[id]:d.layers[id]; 
+            el.sP=function(x,y){this.style.left=x + 'px';this.style.top=y + 'px';}; 
+            el.x = startRX; 
+            el.y = startRY; 
+            return el; 
+        } 
+        function m2(id) 
+        { 
+            var e2=d.getElementById?d.getElementById(id):d.all?d.all[id]:d.layers[id]; 
+            e2.sP=function(x,y){this.style.left=x + 'px';this.style.top=y + 'px';}; 
+            e2.x = startLX; 
+            e2.y = startLY; 
+            return e2; 
+        } 
+        window.stayTopLeft=function() 
+        { 
+            if (document.documentElement && document.documentElement.scrollTop) 
+                var pY =  document.documentElement.scrollTop; 
+            else if (document.body) 
+                var pY =  document.body.scrollTop; 
+            if (document.body.scrollTop > 30){startLY = 3;startRY = 3;} else {startLY = TopAdjust;startRY = TopAdjust;}; 
+            ftlObj.y += (pY+startRY-ftlObj.y)/16; 
+            ftlObj.sP(ftlObj.x, ftlObj.y); 
+            ftlObj2.y += (pY+startLY-ftlObj2.y)/16; 
+            ftlObj2.sP(ftlObj2.x, ftlObj2.y); 
+            setTimeout("stayTopLeft()", 1); 
+        } 
+        ftlObj = ml("divAdRight"); 
+        //stayTopLeft(); 
+        ftlObj2 = m2("divAdLeft"); 
+        stayTopLeft(); 
+    } 
+    function ShowAdDiv() 
+    { 
+        var objAdDivRight = document.getElementById("divAdRight"); 
+        var objAdDivLeft = document.getElementById("divAdLeft");        
+        if (document.body.clientWidth < 1000) 
+        { 
+            objAdDivRight.style.display = "none"; 
+            objAdDivLeft.style.display = "none"; 
+        } 
+        else 
+        { 
+            objAdDivRight.style.display = "block"; 
+            objAdDivLeft.style.display = "block"; 
+            FloatTopDiv(); 
+        } 
+    }  
+</script> 
+<script> 
+document.write("<script type='text/javascript' language='javascript'>MainContentW = 900;LeftBannerW = 125;RightBannerW = 125;LeftAdjust = 5;RightAdjust = 5;TopAdjust = 10;ShowAdDiv();window.onresize=ShowAdDiv;;<\/script>"); 
+</script>
+        
+<%--Kết thúc quảng cáo trượt 2 bên --%>        
+
+
+</html>
